@@ -1,0 +1,97 @@
+how assemble auto running sequence of multiple macros? 
+feedback systems within chip? using chip to suck out own fluid from LV1, resonant frequency? 
+when get fluctuations in pressure meter after simple linear adjustment, why? sometimes go up/down
+
+measuring pumping inside the chip by connecting lV1 to a location on the chip to which you are pumping
+to another place on the chip from. 
+
+what open wait needed to fully fill pumps? why straight line instead of using,
+for example. 4 pump pistons to pump. What is tradeoff between pump open/close time 
+and using more pumps to push more volume? 
+
+More accurate way to measure despite overflow -> Using pipette, measuring time to fill LV1, weighing water? way to estimate 
+portion that is over 40? 
+
+
+3 Valve Fast Pump from Buffer to LV1. Each experiment varies close and open times, each sub experiment
+varies leak times. 
+
+OOOO
+OOOO
+OOOO
+Exp1, taking 2.151 mins 
+100 pump cycles exp1 at 1psi = 13.335 uL, 6.199 avg (per min) 
+	1.5 psi: 13.979, 6.499 avg  
+	2 psi: 14.460, 6.722 avg
+	3 psi: 16.109, 7.489 avg
+
+Exp1.1: changing leak to 50
+1PSI: 13.226 uL 
+1.5PSI: 14.340 
+2PSI: 18.012
+3PSI: 20.345 *overflow 
+
+Exp 1.2: changing leak to 150
+1PSI: 16.501 uL 
+1.5PSI 21.791 
+2PSI: 20.376 *overflow 
+3PSI: 19.075 *overflow results in actual lower reading, visually is higher 
+
+Exp 1.3: changing leak to 500
+1PSI: 20.575 
+1.5PSI 32.367 *overflow makes probably inaccurate 
+2PSI: 16.947 *overflow 
+3PSI: 14.450 *overflow 
+
+Exp2 skip same as 1
+
+Exp3 60 open 60 close 
+
+1psi: 12.074 uL 
+1.5: 14.172 uL 
+2: 14.324 uL
+3: (w/ extra opened) 14.196 (/0 extra) 14.162
+
+Exp3.1: changing leak to 50
+1psi: 14.547 uL *some overflow 
+1.5psi: 15.605 *some overflow 
+2psi: 16.630 *some overflow 
+3psi: 17.684 
+
+Exp 3.2: changing leak to 300 
+1psi: 15.915 uL 
+1.5psi: 25.625 *significant overflow 
+2psi: 18.313 *significant overflow 
+
+Exp 3.3: changing leak to 500 
+1psi: 31.742 uL *some overflow peaks 
+1.5psi: 28.004 *significant overflow 
+2psi: 18.246 *significant overflow 
+
+Exp4 skip same as 3
+
+Exp5 30 open 30 close 
+
+*weird double open of P11 for some reason on first run 
+1psi: 6.661 uL 
+2psi: 10.528 
+3psi: 10.051
+
+Exp5.1: changing leak to 50
+1psi: 11.170 uL 
+1.5psi: 12.363 *a little overflow 
+2psi: 13.502 *solid overflow 
+
+Exp 5.2: changing leak to 300 
+1psi: 21.108 *some overflow 
+1.5 *lots of overflow 
+
+Exp 5.3: changing leak to 500 
+1psi: 21.641 uL *some overflow 
+1.5: 39.68 *lots of overflow 
+
+Fun test: Butterfly/wave to 
+
+
+4 Piston Test: 
+Wave Test: 

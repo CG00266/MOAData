@@ -1,0 +1,248 @@
+Pump Rate Optimization: 
+
+Sol_control description (6-9-22): 
+
+Imports
+	Standard modules and mix patterns library and dictionaries 
+	Maps:
+		valve to solenoid
+		source to gate
+		gate to pump fill 
+HV Control Configeration 
+
+Utility Functions: 
+	for tracking time of sequence and such 
+	list serial devices connected 
+
+Low Level: 
+Open serial (open serial connection, return object) 
+single_open (open solenoid) .encode turns string into bite array 
+single close (close solenoid) 
+all_open (open all solenoids) 
+init_sols (close all solenoids) 
+
+Executing sequences: 
+send_seq (send ocw sequence, run)
+send_macro (send ocw sequence, can repeat) 
+load_macro (send ocw sequence to arduino and load onto macro) 31 macros from 0 to 3
+load_macros_fromdict (loads macro from ocwmacro dictionary format to arduino) (what format is ocwmacro dict?)
+load_fluidic_macros (load macros from csv to arduino) (what format should csvs be in?) 
+load_exercise (loads exercise macros to chip, returns command seq to run it with send_seq or run_macro)
+run_cmd_macro (runs command string to execute macro) 
+run_macro (runs macro in m place n times) run_macro(ocw_string, n=1, m='2')
+
+Building Sequences: 
+ocw_from_csv (return macro dictionary from csv file) (what format does csv have to be in?) 
+	csv must be stored in eoafluidics directory 
+save_macrodict_from_csv (writers macro dict to file)
+ocw_from_dictfile (load macro from dictfile to arduino) 
+ocw_from_plist (return ocw generated from plist) *
+fill_from (return ocw to fill cpu from a source)
+empty_to (return ocw to empty cpu to destination) '
+fast_pump (returns ocw for fast pump ) 
+save_fastpump
+fastpumpleak (returns ocw like fast_pump but with definable leak) 
+save_fastpumpleak 
+load_fastpump (returns cmd string to macro containging copies of fast pump ocw) 
+fastfill_from (
+fastempty_to (
+one_fluid_macro (
+prime_from (
+reset_macronames (
+made_cmd_string () (what are command strings and command sequences?) 
+fill_column (prime column from destination after prime of CPU) 
+load_prime_from (
+run_prime_macro (
+run_prime_from (
+run_fill column (
+
+CE Stuff 
+load_fill_ce (
+run_fill_ce ( 
+
+send_prime_b_fromfile(primeocw):
+send_prime_b 
+run_prime_b 
+
+CE Stuff
+
+load_cerun (
+
+fill_all_run (fill all pma valves and empty to target) 
+load_onesrc_macro (
+wash (fill pma and empty to waste) 
+mix_run (
+load_mix_macro(
+run_fluidic_experiment ( 
+run_ocw (
+
+CE 
+run_ce ( 
+configure_ce ( 
+turn_on_HVPS (
+run_open_ce (
+stop_ce (
+set_waste_v (
+set_waste_i (
+waste_hv_on (
+waste_hv_off (
+set_sample_v (
+set_sample_i (
+sample_hv_on (
+sample_hv_off (
+set_cathode_v
+set_cathode_i
+cathode_hv_on
+cathode_hv_off 
+dataCollectionHub (
+dataCollectionON (
+dataCollectionOFF (
+startdc (
+
+make_excmd (
+
+
+Rerunning Anna's Routines: 
+
+Eliminate deadvolume: 
+
+set pressure head to 1psi 
+#open pathway to open cpu to eliminate deadvolume and fill cpu 
+send_seq(''o27 o29 o32 o36 o28 o31 o35 o23 o20 o16 o22 o19 o15 ') 
+#Empty cpu to waste
+run_macro(empty_to('Waste'), n=1, m='1') 
+
+See fluidic resistance of paths through cpu: Open path, then close gates, then empty to waste before next path 
+Path 1
+XXXX
+XXXX
+XOOO
+send_seq('o27 o29 o28 o23 o25 ') 
+send_seq('c27 c25 ') 
+#Leave for 30s min, then try at 1.5psi, 2psi, 2.5psi,3 psi 
+run_macro(empty_to('Waste'), n=1, m='1')
+Datafile = Opencpu_path1
+
+1psi volume: 2.825 uL in 30s t2 : 2.575 
+1.5psi volume:  16.935 2 times 
+1.5psi repeat: 11.055 uL in 30s: t2 10.862 
+2psi volume: 17.412 uL in 30s: t2 17.581  *note overflow error makes accuracy questionable 
+2.5psi volume: 13.309 uL : t2 14.748 uL *Overflow error almost constant, hit max
+
+Path 2
+XXXX
+XOOO
+XOXO
+send_seq('o27 o29 o32 o31 o20 o23 o25 ') 
+send_seq('c27 c25 ') 
+#Leave for 1 min, then try at 1.5psi, 2psi, 2.5psi, 3psi 
+run_macro(empty_to('Waste'), n=1, m='1')
+Datafile = Opencpu_path2
+
+1psi: 4.677 uL 30s 
+1.5psi: 14.232 uL t2: 13.657 
+2psi: 18.354 *overflow detected 
+2.5psi: 14.470 *overflow almost constant 
+
+Path 3
+
+XOOO
+XOXO
+XOXO
+send_seq('o27 o29 o32 o36 o35 o16 o20 o23 o25 ')
+#Leave for 1 min , then repeat at 1.5psi, 2psi, 2.5psi, 3psi 
+send_seq('c27 c25 ') 
+run_macro(empty_to('Waste'), n=1, m='1')
+Datafile = Opencpu_path3
+
+1psi: 6.726 ul t2: 7.744
+1.5psi: 11.323 
+2psi: 15.354 
+2.5psi: 16.663 *overflow detection almost constant 
+
+
+Replicating Anna's Experiments: 
+
+
+Expt #:
+
+AnnaFastPumpingOffChip_SetA
+1 
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+
+AnnaFastPumpingOffChip_SetB
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+
+AnnaFastPumpingOffChip_SetC
+21
+22
+23
+24
+25
+16
+27
+28
+29
+30
+
+AnnaFastPumpingOffChip_SetD
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+
+AnnaFastPumpingOffChip_SetE
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+
+
+
+
+
+
+
+
+ 
